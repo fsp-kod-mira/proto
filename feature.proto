@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package FeatureService;
+
+service Feature {
+  rpc Insert(InsertRequest) returns (Empty) {}
+  rpc Delete(DeleteRequest) returns (Empty) {}
+  rpc ReadRequests(Empty) returns (FeatureList) {}
+}
+
+message InsertRequest {
+    string name = 1;
+    float coefficient = 2;
+}
+
+message DeleteRequest
+{
+  uint64 id = 1;
+}
+
+
+message FeatureStruct {
+  uint64 id = 1;
+  string name = 2;
+  float coefficient = 3;
+}
+
+
+message FeatureList {
+  repeated FeatureStruct items = 1;
+}
+
+
+message Empty {}
