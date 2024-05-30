@@ -24,6 +24,7 @@ message SignUpRequest {
   string lastName = 3;
   string firstName = 4;
   string middleName = 5;
+  string email = 6;
 }
 
 message SignOutRequest {
