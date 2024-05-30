@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package="api/auth";
+
+enum Role {
+  admin = 0;
+  recruiter = 1;
+  hiring_manager = 2;
+  resource_manager = 3;
+}
+
+message Empty {}
+
+message SignInRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignUpRequest {
+  Role role = 1;
+  string password = 2;
+  string lastName = 3;
+  string firstName = 4;
+  string middleName = 5;
+}
+
+message SignOutRequest {
+  string accessToken = 1;
+}
+
+message AuthRequest {
+  string accessToken = 1;
+  Role role = 2;
+}
+
+message AuthResponse {
+  string userId = 1;
+  Role role = 2;
+}
+
+message RefreshRequest {
+  string refreshToken = 1;
+}
+
+message Tokens {
+  string access = 1;
+  string refresh = 2;
+}
+
+message User {
+  string id = 1;
+  string lastName = 2;
+  string firstName = 3;
+  string middleName = 4;
+  string email = 5;
+}
+
+message FindUserByIdRequest {
+  string id = 1;
+}
+
+message FindUsersByIdsRequest {
+  repeated string ids = 1;
+}
+
+message FindUsersByIdsResponse {
+  repeated User users = 1;
+}
+
+service Auth {
+  rpc SignIn(SignInRequest) returns (Tokens);
+  rpc SignUp(SignUpRequest) returns (Tokens);
+  rpc SignOut(SignOutRequest) returns (Empty);
+
+  rpc Auth(AuthRequest) returns (AuthResponse);
+  rpc Refresh(RefreshRequest) returns (Tokens);
+
+  rpc FindUserById(FindUserByIdRequest) returns (User);
+  rpc FindUsersByIds(FindUsersByIdsRequest) returns (FindUsersByIdsResponse);
+}
