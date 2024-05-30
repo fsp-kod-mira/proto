@@ -50,5 +50,3 @@ service Feature {
     rpc Get (Empty) returns (HibrydFeatureList) {}
     
 }
-
-message Empty {}
