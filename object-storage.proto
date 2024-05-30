@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package objectStorage;
+
+option go_package="api/objectstorage";
+
+service ObjectStorage {
+  rpc Upload(stream File) returns (UploadResponse);
+  rpc Get(GetRequest) returns (stream File);
+}
+
+message Meta {
+  string filename = 1;
+}
+
+message File {
+  bytes chunk = 1;
+  Meta meta = 2;
+}
+
+message UploadResponse {
+  string fileName = 1;
+}
+
+message GetRequest {
+  string fileName = 1;
+}
+
