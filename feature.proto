@@ -1,36 +1,54 @@
 syntax = "proto3";
 
-option go_package = "api/feature";
-
 package FeatureService;
 
-service Feature {
-  rpc Insert(InsertRequest) returns (Empty) {}
-  rpc Delete(DeleteRequest) returns (Empty) {}
-  rpc ReadRequests(Empty) returns (FeatureList) {}
-}
 
-message InsertRequest {
-    string name = 1;
-    float coefficient = 2;
-}
-
-message DeleteRequest
-{
-  uint64 id = 1;
-}
-
+message Empty {}
 
 message FeatureStruct {
+    uint64 id = 1;
+    string name = 2;
+    uint64 priority_id = 3;
+}
+
+message PriorityStruct {
+    uint64 id = 1;
+    string name = 2;
+    float coefficient = 3;
+}
+
+
+message HibrydFeature {
+  uint64 feature_id = 1;
+  uint64 priority_id = 2;
+  string feature_name = 3;
+  string priority_name = 4;
+  float coefficient = 5;
+}
+
+message HibrydFeatureList {
+  repeated HibrydFeature items = 1;
+}
+
+
+
+message IdStruct {
   uint64 id = 1;
-  string name = 2;
-  float coefficient = 3;
 }
 
 
-message FeatureList {
-  repeated FeatureStruct items = 1;
-}
+service Feature {
+    rpc AddPriority(PriorityStruct) returns (PriorityStruct) {}
+    rpc AddFeature(FeatureStruct) returns (FeatureStruct) {}
 
+    rpc DelPriority(IdStruct) returns (Empty) {}
+    rpc DelFeature(IdStruct) returns (Empty) {}
+
+    rpc EditPriority(IdStruct) returns (Empty) {}
+    rpc EditFeature(IdStruct) returns (Empty) {}  
+
+    rpc Get (Empty) returns (HibrydFeatureList) {}
+    
+}
 
 message Empty {}
