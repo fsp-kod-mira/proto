@@ -36,10 +36,6 @@ message FeaturesList
 }
 
 
-
-
-
-
 message IdStruct
 {
     uint64 id = 1;
@@ -47,25 +43,25 @@ message IdStruct
 
 
 
+
 service Templates
 {
+    rpc CreateLink (FeatureLinkTemplateStruct) returns (IdStruct);          // Создание связи между фичами и шаблонами +
+    rpc DeleteLink(FeatureLinkTemplateStruct) returns (Empty);              // Удаление связи между таблицами +
+
+
+    rpc CreateTemplate(TemplateStruct) returns (IdStruct);                  // Создание нового шаблона +
+    rpc UpdateTemplate(TemplateStruct) returns (Empty);                     // Редактирование шаблона +
+    rpc DeleteTemplate(IdStruct) returns (Empty);                           // Удаление шаблона по id +
+
+
+
+    rpc CreateFeature(FeatureStruct) returns (IdStruct);                    // Создание фичи +
+    rpc UpdateFeature(FeatureStruct) returns (Empty);                       // Редактирование фичи +
+    rpc DeleteFeature(IdStruct) returns (Empty);                            // Удаление фичи +
+
+
     
-    // Создание связи между фичами и шаблонами
-    rpc CreateLink (FeatureLinkTemplateStruct) returns (IdStruct);
-
-    // Создание нового шаблона
-    rpc CreateTemplate(TemplateStruct) returns (IdStruct);
-
-    rpc CreateFeature(FeatureStruct) returns (IdStruct);
-
-    // Удаление шаблона по id
-    rpc DeleteTemplate(IdStruct) returns (Empty);
-
-    // Удаление связи между таблицами
-    rpc DeleteLink(FeatureLinkTemplateStruct) returns (Empty);
-
-
-    // Получение всех шаблонов
-    rpc GetAllTemplates(Empty) returns (TemplatesList);
-    rpc GetFeaturesByTemplateId(IdStruct) returns (FeaturesList);
+    rpc GetAllTemplates(Empty) returns (TemplatesList);                     // Получение всех шаблонов +
+    rpc GetFeaturesByTemplateId(IdStruct) returns (FeaturesList);           // Получение фичи по айди шаблона +
 }
