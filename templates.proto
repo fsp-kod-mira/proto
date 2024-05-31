@@ -28,7 +28,6 @@ message TemplatesList
 message FeatureStruct {
     uint64 id = 1;
     string name = 2;
-    uint64 priority_id = 3;
 }
 
 message FeaturesList
@@ -48,13 +47,16 @@ message IdStruct
 
 
 
-service TemplatesStorage {
+service Templates
+{
+    
     // Создание связи между фичами и шаблонами
     rpc CreateLink (FeatureLinkTemplateStruct) returns (IdStruct);
 
     // Создание нового шаблона
     rpc CreateTemplate(TemplateStruct) returns (IdStruct);
 
+    rpc CreateFeature(FeatureStruct) returns ;
 
     // Удаление шаблона по id
     rpc DeleteTemplate(IdStruct) returns (Empty);
@@ -66,7 +68,4 @@ service TemplatesStorage {
     // Получение всех шаблонов
     rpc GetAllTemplates(Empty) returns (TemplatesList);
     rpc GetFeaturesByTemplateId(IdStruct) returns (FeaturesList);
-
-
-
 }
