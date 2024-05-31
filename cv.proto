@@ -6,11 +6,18 @@ option go_package = "api/cv";
 
 message Empty {}
 
+message Feature {
+  string feature_name = 1;
+  string priority_name = 2;
+  float coefficient = 3;
+}
+
 message CV {
   string id = 1;
   string status = 2;
   string file_id = 3;
   string uploaded_by_id = 4;
+  repeated Feature features = 5;
 }
 
 message Id {
@@ -26,8 +33,13 @@ message GetAllResponse {
   repeated CV cvs = 1;
 }
 
+message UploadRequest {
+  string file_id = 1;
+  string uploaded_by_id = 2;
+}
+
 service CvService {
-  rpc Upload(CV) returns (Empty);
+  rpc Upload(UploadRequest) returns (Empty);
   rpc GetOne(Id) returns (CV);
   rpc GetAll(Paggination) returns (GetAllResponse);
 }
