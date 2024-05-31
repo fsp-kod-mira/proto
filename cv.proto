@@ -6,11 +6,18 @@ option go_package = "api/cv";
 
 message Empty {}
 
+message Feature {
+  string feature_name = 1;
+  string priority_name = 2;
+  float coefficient = 3;
+}
+
 message CV {
   string id = 1;
   string status = 2;
   string file_id = 3;
   string uploaded_by_id = 4;
+  repeated Feature features = 5;
 }
 
 message Id {

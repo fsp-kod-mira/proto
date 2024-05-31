@@ -2,21 +2,21 @@ syntax = "proto3";
 
 package FeatureService;
 
+option go_package = "api/features";
 
 message Empty {}
 
 message FeatureStruct {
-    uint64 id = 1;
-    string name = 2;
-    uint64 priority_id = 3;
+  uint64 id = 1;
+  string name = 2;
+  uint64 priority_id = 3;
 }
 
 message PriorityStruct {
-    uint64 id = 1;
-    string name = 2;
-    float coefficient = 3;
+  uint64 id = 1;
+  string name = 2;
+  float coefficient = 3;
 }
-
 
 message HibrydFeature {
   uint64 feature_id = 1;
@@ -30,24 +30,21 @@ message HibrydFeatureList {
   repeated HibrydFeature items = 1;
 }
 
-
-
 message IdStruct {
   uint64 id = 1;
 }
 
-
 service Feature {
-    rpc AddPriority(PriorityStruct) returns (PriorityStruct) {}
-    rpc AddFeature(FeatureStruct) returns (FeatureStruct) {}
+  rpc AddPriority(PriorityStruct) returns (PriorityStruct) {}
+  rpc AddFeature(FeatureStruct) returns (FeatureStruct) {}
 
-    rpc DelPriority(IdStruct) returns (Empty) {}
-    rpc DelFeature(IdStruct) returns (Empty) {}
+  rpc DelPriority(IdStruct) returns (Empty) {}
+  rpc DelFeature(IdStruct) returns (Empty) {}
 
-    rpc EditPriority(IdStruct) returns (Empty) {}
-    rpc EditFeature(IdStruct) returns (Empty) {}  
+  rpc EditPriority(IdStruct) returns (Empty) {}
+  rpc EditFeature(IdStruct) returns (Empty) {}
 
-    rpc Get (Empty) returns (HibrydFeatureList) {}
-    
-    rpc GetFeaturesById(IdStruct) returns (HibrydFeature);
+  rpc Get(Empty) returns (HibrydFeatureList) {}
+
+  rpc GetFeaturesById(IdStruct) returns (HibrydFeature);
 }
