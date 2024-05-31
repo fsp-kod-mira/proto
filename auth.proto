@@ -57,6 +57,7 @@ message User {
   string firstName = 3;
   string middleName = 4;
   string email = 5;
+  Role role = 6;
 }
 
 message FindUserByIdRequest {

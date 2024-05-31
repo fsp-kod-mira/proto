@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package TemplatesService;
+
+
+message Empty {}
+
+
+message FeatureLinkTemplateStruct
+{
+    uint64 feature_id = 1;
+    uint64 template_id = 2;
+}
+
+message TemplateStruct
+{
+    uint64 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message TemplatesList
+{
+    repeated TemplateStruct items = 1;
+}
+
+
+message FeatureStruct {
+    uint64 id = 1;
+    string name = 2;
+    uint64 priority_id = 3;
+}
+
+message FeaturesList
+{
+    repeated FeatureStruct items = 1;
+}
+
+
+
+
+
+
+message IdStruct
+{
+    uint64 id = 1;
+}
+
+
+
+service TemplatesStorage {
+    // Создание связи между фичами и шаблонами
+    rpc CreateLink (FeatureLinkTemplateStruct) returns (IdStruct);
+
+    // Создание нового шаблона
+    rpc CreateTemplate(TemplateStruct) returns (IdStruct);
+
+
+    // Удаление шаблона по id
+    rpc DeleteTemplate(IdStruct) returns (Empty);
+
+    // Удаление связи между таблицами
+    rpc DeleteLink(FeatureLinkTemplateStruct) returns (Empty);
+
+
+    // Получение всех шаблонов
+    rpc GetAllTemplates(Empty) returns (TemplatesList);
+    rpc GetFeaturesByTemplateId(IdStruct) returns (FeaturesList);
+
+
+
+}

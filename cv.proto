@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package cv;
+
+option go_package = "api/cv";
+
+message Empty {}
+
+message CV {
+  string id = 1;
+  string status = 2;
+  string file_id = 3;
+  string uploaded_by_id = 4;
+}
+
+message Id {
+  string id = 1;
+}
+
+message Paggination {
+  int32 offset = 1;
+  int32 limit = 2;
+}
+
+message GetAllResponse {
+  repeated CV cvs = 1;
+}
+
+service CvService {
+  rpc Upload(CV) returns (Empty);
+  rpc GetOne(Id) returns (CV);
+  rpc GetAll(Paggination) returns (GetAllResponse);
+}
