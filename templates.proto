@@ -56,7 +56,7 @@ service Templates
     // Создание нового шаблона
     rpc CreateTemplate(TemplateStruct) returns (IdStruct);
 
-    rpc CreateFeature(FeatureStruct) returns ;
+    rpc CreateFeature(FeatureStruct) returns (IdStruct);
 
     // Удаление шаблона по id
     rpc DeleteTemplate(IdStruct) returns (Empty);
