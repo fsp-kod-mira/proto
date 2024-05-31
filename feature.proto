@@ -49,4 +49,5 @@ service Feature {
 
     rpc Get (Empty) returns (HibrydFeatureList) {}
     
+    rpc GetFeaturesById(IdStruct) returns (HibrydFeature);
 }
