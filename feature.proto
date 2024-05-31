@@ -38,8 +38,8 @@ message IdStruct {
 
 
 service Feature {
-    rpc AddPriority(PriorityStruct) returns (PriorityStruct) {}
-    rpc AddFeature(FeatureStruct) returns (FeatureStruct) {}
+    rpc AddPriority(PriorityStruct) returns (IdStruct) {}
+    rpc AddFeature(FeatureStruct) returns (IdStruct) {}
 
     rpc DelPriority(IdStruct) returns (Empty) {}
     rpc DelFeature(IdStruct) returns (Empty) {}
