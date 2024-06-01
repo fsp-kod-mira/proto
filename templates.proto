@@ -9,8 +9,10 @@ message Empty {}
 
 message FeatureLinkTemplateStruct
 {
-    uint64 feature_id = 1;
-    uint64 template_id = 2;
+    uint64 id = 1;
+    uint64 feature_id = 2;
+    uint64 template_id = 3;
+    string value = 4;
 }
 
 message TemplateStruct
@@ -27,9 +29,16 @@ message TemplatesList
 
 
 message FeatureStruct {
+    enum FeatureType {
+        RANGE = 0;
+        LIST = 1;
+    }
+
     uint64 id = 1;
     string name = 2;
+    FeatureType feature_type = 3;
 }
+
 
 message FeaturesList
 {
@@ -44,25 +53,42 @@ message IdStruct
 
 
 
+// фича с ссылкой
+message FeatureLinkTemplate
+{
+    FeatureLinkTemplateStruct link = 1;
+    FeatureStruct feature = 2;
+}
+
+
+// хранит на 1 шаблон кучу фич с описанием данных из ссылок
+message HibridFeatureLinkTemplateList
+{
+    repeated FeatureLinkTemplate items = 1;
+}
+
+
+
 
 service Templates
 {
-    rpc CreateLink (FeatureLinkTemplateStruct) returns (IdStruct);          // Создание связи между фичами и шаблонами +
-    rpc DeleteLink(FeatureLinkTemplateStruct) returns (Empty);              // Удаление связи между таблицами +
+    rpc CreateLink(FeatureLinkTemplateStruct) returns (IdStruct);              // Создание связи между фичами и шаблонами +
+    rpc UpdateLink(FeatureLinkTemplateStruct) returns (Empty);                 // Редактирование связи между таблицами
+    rpc DeleteLink(FeatureLinkTemplateStruct) returns (Empty);                 // Удаление связи между таблицами +
 
 
-    rpc CreateTemplate(TemplateStruct) returns (IdStruct);                  // Создание нового шаблона +
-    rpc UpdateTemplate(TemplateStruct) returns (Empty);                     // Редактирование шаблона +
-    rpc DeleteTemplate(IdStruct) returns (Empty);                           // Удаление шаблона по id +
+    rpc CreateTemplate(TemplateStruct) returns (IdStruct);                      // Создание нового шаблона +
+    rpc UpdateTemplate(TemplateStruct) returns (Empty);                         // Редактирование шаблона +
+    rpc DeleteTemplate(IdStruct) returns (Empty);                               // Удаление шаблона по id +
 
 
 
-    rpc CreateFeature(FeatureStruct) returns (IdStruct);                    // Создание фичи +
-    rpc UpdateFeature(FeatureStruct) returns (Empty);                       // Редактирование фичи +
-    rpc DeleteFeature(IdStruct) returns (Empty);                            // Удаление фичи +
+    rpc CreateFeature(FeatureStruct) returns (IdStruct);                        // Создание фичи +
+    rpc UpdateFeature(FeatureStruct) returns (Empty);                           // Редактирование фичи +
+    rpc DeleteFeature(IdStruct) returns (Empty);                                // Удаление фичи +
 
 
     
-    rpc GetAllTemplates(Empty) returns (TemplatesList);                     // Получение всех шаблонов +
-    rpc GetFeaturesByTemplateId(IdStruct) returns (FeaturesList);           // Получение фичи по айди шаблона +
+    rpc GetAllTemplates(Empty) returns (TemplatesList);                          // Получение всех шаблонов +
+    rpc GetFeaturesByTemplateId(IdStruct) returns (HibridFeatureLinkTemplateList);   // Получение фичи по айди шаблона +
 }
