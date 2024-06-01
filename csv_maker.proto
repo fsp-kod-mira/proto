@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package CsvMakerService;
+
+service CsvMaker {
+  rpc BuildCsv(stream ExtractRequest) returns (stream StreamResponse) {}
+}
+
+message ExtractRequest {
+    repeated DataRow data_rows = 1;
+}
+
+message DataRow {
+    repeated string row = 1;
+}
+
+message StreamResponse {
+  bytes content = 1;
+}
