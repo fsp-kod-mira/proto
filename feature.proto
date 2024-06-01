@@ -35,6 +35,10 @@ message IdStruct {
 }
 
 
+message NameStruct {
+  string name = 1;
+}
+
 
 
 service Feature {
@@ -51,4 +55,7 @@ service Feature {
     rpc Get(Empty) returns (HibrydFeatureList) {}
 
     rpc GetFeaturesById(IdStruct) returns (HibrydFeature);
+    rpc GetFeaturesByName(NameStruct) returns (FeatureStruct);
+
+
 }
