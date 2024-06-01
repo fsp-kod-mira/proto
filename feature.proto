@@ -36,16 +36,16 @@ message IdStruct {
 
 service Feature {
     rpc AddPriority(PriorityStruct) returns (IdStruct) {}
-    rpc AddFeature(FeatureStruct) returns (IdStruct) {}
+    rpc AddFeature(FeatureStruct) returns (FeatureStruct) {}
 
 
-  rpc DelPriority(IdStruct) returns (Empty) {}
-  rpc DelFeature(IdStruct) returns (Empty) {}
+    rpc DelPriority(IdStruct) returns (Empty) {}
+    rpc DelFeature(IdStruct) returns (Empty) {}
 
-  rpc EditPriority(IdStruct) returns (Empty) {}
-  rpc EditFeature(IdStruct) returns (Empty) {}
+    rpc EditPriority(IdStruct) returns (Empty) {}
+    rpc EditFeature(IdStruct) returns (Empty) {}
 
-  rpc Get(Empty) returns (HibrydFeatureList) {}
+    rpc Get(Empty) returns (HibrydFeatureList) {}
 
-  rpc GetFeaturesById(IdStruct) returns (HibrydFeature);
+    rpc GetFeaturesById(IdStruct) returns (HibrydFeature);
 }
